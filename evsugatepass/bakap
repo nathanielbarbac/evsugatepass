@@ -1,0 +1,52 @@
+<!-- Display entry/exit logs -->
+    <h2>View Entry/Exit Logs</h2>
+    <?php
+    // Include database connection file
+    include "db_connection.php";
+
+    // Retrieve entry/exit logs from the database
+    $sql_logs = "SELECT * FROM entry_exit_logs";
+    $result_logs = $conn->query($sql_logs);
+
+    if ($result_logs->num_rows > 0) {
+        // Display entry/exit logs in a table
+        echo "<table>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                    <th>Date/Time</th>
+                </tr>";
+        while ($row_logs = $result_logs->fetch_assoc()) {
+            echo "<tr>
+                    <td>" . $row_logs['name'] . "</td>
+                    <td>" . $row_logs['action'] . "</td>
+                    <td>" . $row_logs['timestamp'] . "</td>
+                </tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "No entrance/exit logs found.";
+    }
+
+    // Close connection
+    $conn->close();
+    ?>
+
+    <!-- JavaScript function to handle recording in/out actions -->
+    <script>
+        function recordInOut(id, action) {
+            // You can implement the logic here to record in/out actions using AJAX
+            // For simplicity, let's assume it's handled by a separate PHP script
+            window.location.href = "record_in_out.php?id=" + id + "&action=" + action;
+        }
+    </script>
+
+
+
+
+
+
+
+<!-- IN and OUT button for Guard Gatepass Dashboard # pls insert code. -->
+// <td><button class='in-button' onclick=\"recordInOut(" . $row['id'] . ", 'In')\">In</button> <button class='out-button' onclick=\"recordInOut(" . $row['id'] . ", 'Out')\">Out</button></td>
+<!-- insert this code to last time -->
